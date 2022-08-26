@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.commands.ScrollTo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,8 @@ public class TextBoxTest {
     static void configure() {
         System.out.println("this is the @BeforeAll");
         Configuration.baseUrl = "https://demoqa.com";
-        //Configuration.browser = "chrome";
+        Configuration.browserSize= "1024x768";
+        new ScrollTo();
     }
 
     @Test
@@ -60,15 +62,16 @@ public class TextBoxTest {
         $(".react-datepicker__year-select").selectOption("2003");
         $(".react-datepicker__week:nth-child(6) > .react-datepicker__day--006").click();
 // subjects
-        $(".subjects-auto-complete__value-container").click();
-        $("#react-select-2-option-1").click();
+//        $("#userForm #subjectsContainer").setValue("a");
+//        $("#react-select-2-option-0").click();
+//        $(".subjects-auto-complete__value-container").setValue("a");
+//        $("#react-select-2-option-2").click();
 // hobbies
         $(".custom-checkbox:nth-child(1) > .custom-control-label").click();
 // upload image
-        $("#uploadPicture").click();
-        $("#uploadPicture").val("C:\\fakepath\\27f955b3-1e43-4d23-ab3f-ad407b47bf8e.jpg");
+        $("#uploadPicture").setValue("C:\\Users\\79518\\Desktop\\card.jpg");
 // address
-        $("#currentAddress").setValue("frfrfewsf");
+        $("#currentAddress").setValue("my address 123");
 // state
         $(".css-1pahdxg-control > .css-1hwfws3").click();
         $("#react-select-3-option-2").click();
