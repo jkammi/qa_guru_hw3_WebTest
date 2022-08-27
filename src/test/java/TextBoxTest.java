@@ -20,7 +20,7 @@ public class TextBoxTest {
         System.out.println("this is the @BeforeAll");
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize= "1024x768";
-        new ScrollTo();
+//        new ScrollTo();
     }
 
     @Test
