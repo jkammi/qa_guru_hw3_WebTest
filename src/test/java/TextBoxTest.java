@@ -1,33 +1,26 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.commands.ScrollTo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
+import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.files.DownloadActions.click;
+import static com.codeborne.selenide.Selenide.open;
 
 public class TextBoxTest {
 
     @BeforeAll
     static void configure() {
-        System.out.println("this is the @BeforeAll");
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize= "1024x768";
-//        new ScrollTo();
+        Configuration.browserSize = "1920x1080";
+        Configuration.browserPosition = "0x0";
     }
 
     @Test
-    @DisplayName("Проверка заполнения формы")
+    @DisplayName("Fill simple form Test")
     void fillFormTest() {
-//            $("id=\'userName\'")
-//            $("[id=userName]").setValue("Egor")
         open("/text-box");
         $("#userName").setValue("Egor");
         $("#userEmail").setValue("Egor@fff.ty");
@@ -36,22 +29,21 @@ public class TextBoxTest {
         $("#submit").click();
         $("#output #name").shouldHave(text("Egor"));
         $("#output #email").shouldHave(text("Egor@fff.ty"));
-//            $("#output").$("#name").shouldHave(text("Egor@fff.ty"));
-//            $("#name").shouldHave(text("Egor@fff.ty"));
-//            $("#output").shouldHave(text("Egor@fff.ty"));
         $("#output #currentAddress").shouldHave(text("adress 1"));
         $("#output #permanentAddress").shouldHave(text("adress 2"));
     }
 
     @Test
-    @DisplayName("automation-practice-form")
+    @DisplayName("Registration Test")
     void fillPracticeForm() {
         open("/automation-practice-form");
         $("#userForm #firstName").setValue("Kamila");
         $("#userForm #lastName").setValue("Sharuykova");
         $("#userForm #userEmail").setValue("kamila@gmail.com");
-        $(".custom-radio:nth-child(2) > .custom-control-label").click(); // выбор пола
-        $("#userForm #userNumber").setValue("79518935500");
+// gender
+        $("#genterWrapper").$(byText("Female")).click();
+// mobile number
+        $("#userForm #userNumber").setValue("7951893550");
 // birthday
         $("#dateOfBirthInput").click();
         $(".react-datepicker__day--021").click();
@@ -62,32 +54,34 @@ public class TextBoxTest {
         $(".react-datepicker__year-select").selectOption("2003");
         $(".react-datepicker__week:nth-child(6) > .react-datepicker__day--006").click();
 // subjects
-//        $("#userForm #subjectsContainer").setValue("a");
-//        $("#react-select-2-option-0").click();
-//        $(".subjects-auto-complete__value-container").setValue("a");
-//        $("#react-select-2-option-2").click();
+        $("#subjectsInput").setValue("Economics").pressEnter();
 // hobbies
         $(".custom-checkbox:nth-child(1) > .custom-control-label").click();
 // upload image
-        $("#uploadPicture").setValue("C:\\Users\\79518\\Desktop\\card.jpg");
+        $("#uploadPicture").setValue("src\\test\\resources\\Circle-icon.png");
 // address
         $("#currentAddress").setValue("my address 123");
 // state
-        $(".css-1pahdxg-control > .css-1hwfws3").click();
-        $("#react-select-3-option-2").click();
+        $("#state").scrollTo().click();
+        $("#stateCity-wrapper").$(byText("Haryana")).click();
 // city
-        $(".css-1pahdxg-control > .css-1hwfws3").click();
-        $("#react-select-4-option-1").click();
-
-        $("#submit").click();
-        }
-
-
-
-
-
-
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Karnal")).click();
+// submit
+        $("#submit").pressEnter();
+// check
+        $(".modal-dialog").should(appear);
+        $(".modal-body").shouldHave(
+                text("Kamila Sharuykova"),
+                text("kamila@gmail.com"),
+                text("Female"),
+                text("7951893550"),
+                text("06 March,2003"),
+                text("Economics"),
+                text("Sports"),
+                text("Circle-icon.png"),
+                text("my address 123"),
+                text("Haryana Karnal")
+        );
+    }
 }
-
-
-// div.S-product-item__name
