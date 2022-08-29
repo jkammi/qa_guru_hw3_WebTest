@@ -3,8 +3,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -40,11 +39,11 @@ public class TextBoxTest {
         $("#userForm #firstName").setValue("Kamila");
         $("#userForm #lastName").setValue("Sharuykova");
         $("#userForm #userEmail").setValue("kamila@gmail.com");
-// gender
+        // gender
         $("#genterWrapper").$(byText("Female")).click();
-// mobile number
+        // mobile number
         $("#userForm #userNumber").setValue("7951893550");
-// birthday
+        // birthday
         $("#dateOfBirthInput").click();
         $(".react-datepicker__day--021").click();
         $("#dateOfBirthInput").click();
@@ -53,24 +52,24 @@ public class TextBoxTest {
         $(".react-datepicker__year-select").click();
         $(".react-datepicker__year-select").selectOption("2003");
         $(".react-datepicker__week:nth-child(6) > .react-datepicker__day--006").click();
-// subjects
+        // subjects
         $("#subjectsInput").setValue("Economics").pressEnter();
-// hobbies
-        $(".custom-checkbox:nth-child(1) > .custom-control-label").click();
-// upload image
+        // hobbies
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+        // upload image
         $("#uploadPicture").setValue("src\\test\\resources\\Circle-icon.png");
-// address
+        // address
         $("#currentAddress").setValue("my address 123");
-// state
+        // state
         $("#state").scrollTo().click();
         $("#stateCity-wrapper").$(byText("Haryana")).click();
-// city
+        // city
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Karnal")).click();
-// submit
+        // submit
         $("#submit").pressEnter();
-// check
-        $(".modal-dialog").should(appear);
+        // assertions
+        $(".modal-dialog").shouldBe(visible);
         $(".modal-body").shouldHave(
                 text("Kamila Sharuykova"),
                 text("kamila@gmail.com"),
